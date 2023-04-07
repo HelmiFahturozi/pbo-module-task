@@ -1,0 +1,225 @@
+using System;
+
+public abstract class Processor
+{
+	public string Merk { get; set; }
+	public string Tipe { get; set; }
+}
+
+public class Intel : Processor
+{
+	public Intel()
+	{
+		Merk = "Intel";
+	}
+}
+
+public class Corei3 : Intel
+{
+	public Corei3()
+	{
+		Tipe = "Core i3";
+	}
+}
+
+public class Corei5 : Intel
+{
+	public Corei5()
+	{
+		Tipe = "Core i5";
+	}
+}
+
+public class Corei7 : Intel
+{
+	public Corei7()
+	{
+		Tipe = "Core i7";
+	}
+}
+public class AMD1 : Processor
+{
+	public AMD1()
+	{
+		Merk = "AMD";
+	}
+}
+
+public class Ryzen : Processor
+{
+	public Ryzen()
+	{
+		Tipe = "Ryzen";
+	}
+}
+
+public class Athlon : Processor
+{
+	public Athlon()
+	{
+		Tipe = "Athlon";
+	}
+}
+
+public class Vga
+{
+	public string Merk { get; set; }
+}
+
+public class Nvidia : Vga
+{
+	public Nvidia()
+	{
+		Merk = "Nvidia";
+	}
+}
+
+public class AMD : Vga
+{
+	public AMD()
+	{
+		Merk = "AMD";
+	}
+}
+
+public class Laptop
+{
+	public string Merk;
+	public string Tipe;
+	public Vga vga;
+	public Processor processor;
+
+	public Laptop(string merk, string tipe, Vga vga, Processor processor)
+	{
+		this.Merk = merk;
+		this.Tipe = tipe;
+		this.vga = vga;
+		this.processor = processor;
+	}
+
+	public void LaptopDinyalakan()
+	{
+		Console.WriteLine($"Laptop {Merk} {Tipe} menyala");
+	}
+
+	public void LaptopDimatikan()
+	{
+		Console.WriteLine($"Laptop {Merk} {Tipe} mati");
+	}
+
+}
+public class ASUS : Laptop
+{
+	public ASUS(string merk, string tipe, Vga vga, Processor processor) : base(merk, tipe, vga, processor)
+	{
+	}
+}
+
+
+public class ROG : ASUS
+{
+	public ROG() : base("ROG", null, new Nvidia(), new Intel())
+	{
+	}
+}
+
+public class Vivobook : ASUS
+{
+	public Vivobook() : base("Vivobook", null, new Nvidia(), new Intel())
+	{
+	}
+
+	public void ngoding()
+	{
+		Console.WriteLine("Ctak Ctak Ctak, error lagi!!");
+	}
+}
+
+public class ACER : Laptop
+{
+	public ACER(string merk, string tipe, Vga vga, Processor processor) : base(merk, tipe, vga, processor)
+	{
+	}
+}
+
+
+public class Swift : ACER
+{
+	public Swift() : base("Swift", null, new AMD(), new AMD1())
+	{
+	}
+}
+
+public class Predator : ACER
+{
+	public Predator() : base("Predator", null, new Nvidia(), new Intel())
+	{
+	}
+
+	public void BermainGame()
+	{
+		Console.WriteLine($"Laptop {Merk} {Tipe} sedang memainkan game");
+	}
+}
+
+public class Lenovo : Laptop
+{
+	public Lenovo(string merk, string tipe, Vga vga, Processor processor) : base(merk, tipe, vga, processor)
+	{
+	}
+}
+
+
+public class IdeaPad : Lenovo
+{
+	public IdeaPad() : base("IdeaPad", null, new Nvidia(), new Intel())
+	{
+	}
+}
+
+public class Legion : Lenovo
+{
+	public Legion() : base("Legion", null, new Nvidia(), new Intel())
+	{
+	}
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		Laptop laptop1 = new Vivobook()
+		{
+			processor = new Corei5(),
+			vga = new Nvidia()
+		};
+
+		Laptop laptop2 = new IdeaPad()
+		{
+			processor = new Ryzen(),
+			vga = new AMD()
+		};
+
+		Predator predator = new Predator()
+		{
+			processor = new Corei7(),
+			vga = new AMD()
+		};
+
+
+
+
+		laptop2.LaptopDinyalakan(); // menjalankan method LaptopDinyalakan()
+		laptop2.LaptopDimatikan(); // menjalankan method LaptopDimatikan()
+		Console.WriteLine();
+		laptop1.ngoding();
+		Console.WriteLine($"Spesifikasi Laptop 1:\nMerk VGA: {laptop1.vga.Merk}\nMerk Processor: {laptop1.processor.Merk}\nTipe Processor: {laptop1.processor.Tipe}");
+		Console.WriteLine();
+		predator.BermainGame();
+		ACER acer = new Predator();
+		acer.BermainGame();
+
+
+
+	}
+}
